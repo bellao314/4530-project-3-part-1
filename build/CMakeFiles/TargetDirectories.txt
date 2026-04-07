@@ -1,8 +1,0 @@
-/Users/jackcrane/Documents/programming/4530-project-3-part-1/build/CMakeFiles/edit_cache.dir
-/Users/jackcrane/Documents/programming/4530-project-3-part-1/build/CMakeFiles/rebuild_cache.dir
-/Users/jackcrane/Documents/programming/4530-project-3-part-1/build/Client/CMakeFiles/client_executable.dir
-/Users/jackcrane/Documents/programming/4530-project-3-part-1/build/Client/CMakeFiles/edit_cache.dir
-/Users/jackcrane/Documents/programming/4530-project-3-part-1/build/Client/CMakeFiles/rebuild_cache.dir
-/Users/jackcrane/Documents/programming/4530-project-3-part-1/build/Server/CMakeFiles/server_executable.dir
-/Users/jackcrane/Documents/programming/4530-project-3-part-1/build/Server/CMakeFiles/edit_cache.dir
-/Users/jackcrane/Documents/programming/4530-project-3-part-1/build/Server/CMakeFiles/rebuild_cache.dir
