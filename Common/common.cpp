@@ -51,14 +51,26 @@ void encryptMessage(const std::string& plaintext, unsigned char* ciphertext, int
 
 void decryptMessage(EVP_CIPHER_CTX* ctx, const unsigned char* encryptedData, int encryptedLen, const unsigned char* aesKey, const unsigned char* iv, unsigned char* decryptedBuffer) {
     // Call the method from OpenSSL to initialize decryption context with AES-256-CBC. Then call handleErrors()
+    int cipher = EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, aesKey, iv);
+    if (cipher == 0) {
+        handleErrors();
+    }
     
 
     int decryptedLen;
     // Call the method from OpenSSL to decrypt the encrypted data. Then call handleErrors()
+    cipher = EVP_DecryptUpdate(ctx, decryptedBuffer, &decryptedLen, encryptedData, encryptedLen);
+    if (cipher == 0) {
+        handleErrors();
+    }
     
 
     int finalDecryptedLen;
     // Call the method from OpenSSL to finalize decryption. Then call handleErrors()
+    cipher = EVP_DecryptFinal_ex(ctx, decryptedBuffer + decryptedLen, &finalDecryptedLen);
+    if (cipher == 0) {
+        handleErrors();
+    }
 
     decryptedLen += finalDecryptedLen;
 
