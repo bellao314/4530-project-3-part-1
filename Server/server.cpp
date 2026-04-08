@@ -1,4 +1,5 @@
 #include "server.h"
+#include <openssl/rand.h>
 
 // Handles client communication
 void handleClient(int clientSocket) {
@@ -28,8 +29,19 @@ void handleClient(int clientSocket) {
 
         std::cout << "Decrypted message: " << decryptedBuffer << std::endl;
 
-        // Echo back the decrypted message to the client
-        send(clientSocket, decryptedBuffer,  strlen(reinterpret_cast<const char*>(decryptedBuffer)), 0);
+        // Re-encrypt the decrypted message before echoing it back to the client
+        unsigned char echoIv[EVP_MAX_IV_LENGTH];
+        if (RAND_bytes(echoIv, EVP_MAX_IV_LENGTH) != 1) {
+            std::cerr << "Error: Failed to generate random IV." << std::endl;
+            break;
+        }
+
+        unsigned char echoBuffer[BUFFER_SIZE];
+        int echoLen;
+        encryptMessage(reinterpret_cast<const char*>(decryptedBuffer), echoBuffer, &echoLen, echoIv);
+
+        send(clientSocket, echoIv, EVP_MAX_IV_LENGTH, 0);
+        send(clientSocket, echoBuffer, echoLen, 0);
     }
 
     EVP_CIPHER_CTX_free(ctx);
